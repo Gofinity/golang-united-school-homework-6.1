@@ -118,6 +118,7 @@ func (b *box) RemoveAllCircles() error {
 	for _, x := range b.shapes {
 		if reflect.TypeOf(x) == reflect.TypeOf(circle) {
 			dropeedItems = append(dropeedItems, x)
+			continue
 		}
 		res = append(res, x)
 	}
