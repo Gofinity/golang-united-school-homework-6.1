@@ -30,7 +30,7 @@ func (b *box) AddShape(shape Shape) error {
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) GetByIndex(i int) (Shape, error) {
 	err := fmt.Errorf("exceeds shapesCapacity %v", b.shapesCapacity)
-	if b.shapesCapacity >= i {
+	if i >= b.shapesCapacity {
 		return nil, err
 	}
 	return b.shapes[i], nil
@@ -40,7 +40,21 @@ func (b *box) GetByIndex(i int) (Shape, error) {
 // ExtractByIndex allows getting shape by index and removes this shape from the list.
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) ExtractByIndex(i int) (Shape, error) {
-	panic("implement me")
+	err := fmt.Errorf("exceeds shapesCapacity %v", b.shapesCapacity)
+	if i >= b.shapesCapacity {
+		return nil, err
+	}
+
+	res := []Shape{}
+	dropeedItem := b.shapes[i]
+
+	for numberItem, x := range b.shapes {
+		if numberItem != i {
+			res = append(res, x)
+		}
+	}
+	b.shapes = res
+	return dropeedItem, nil
 
 }
 
