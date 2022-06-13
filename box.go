@@ -1,6 +1,9 @@
 package golang_united_school_homework
 
-import "fmt"
+import (
+	"fmt"
+	"reflect"
+)
 
 // box contains list of shapes and able to perform operations on them
 type box struct {
@@ -83,19 +86,45 @@ func (b *box) ReplaceByIndex(i int, shape Shape) (Shape, error) {
 
 // SumPerimeter provides sum perimeter of all shapes in the list.
 func (b *box) SumPerimeter() float64 {
-	panic("implement me")
+	var res float64
 
+	for _, x := range b.shapes {
+
+		res = res + x.CalcPerimeter()
+	}
+	return res
 }
 
 // SumArea provides sum area of all shapes in the list.
 func (b *box) SumArea() float64 {
-	panic("implement me")
+	var res float64
+
+	for _, x := range b.shapes {
+		res = res + x.CalcArea()
+	}
+	return res
 
 }
 
 // RemoveAllCircles removes all circles in the list
 // whether circles are not exist in the list, then returns an error
 func (b *box) RemoveAllCircles() error {
-	panic("implement me")
+	err := fmt.Errorf("no circle :(")
+	circle := Circle{}
+
+	res := []Shape{}
+	dropeedItems := []Shape{}
+
+	for _, x := range b.shapes {
+		if reflect.TypeOf(x) == reflect.TypeOf(circle) {
+			dropeedItems = append(dropeedItems, x)
+		}
+		res = append(res, x)
+	}
+	if len(dropeedItems) == 0 {
+		return err
+	}
+	b.shapes = res
+	return nil
 
 }
