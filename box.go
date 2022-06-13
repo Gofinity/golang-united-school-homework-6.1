@@ -1,5 +1,6 @@
 package golang_united_school_homework
 
+import "fmt"
 
 // box contains list of shapes and able to perform operations on them
 type box struct {
@@ -17,13 +18,22 @@ func NewBox(shapesCapacity int) *box {
 // AddShape adds shape to the box
 // returns the error in case it goes out of the shapesCapacity range.
 func (b *box) AddShape(shape Shape) error {
-	panic("implement me")
+	err := fmt.Errorf("exceeds shapesCapacity %v", b.shapesCapacity)
+	if len(b.shapes) >= b.shapesCapacity {
+		return err
+	}
+	b.shapes = append(b.shapes, shape)
+	return nil
 }
 
 // GetByIndex allows getting shape by index
 // whether shape by index doesn't exist or index went out of the range, then it returns an error
 func (b *box) GetByIndex(i int) (Shape, error) {
-	panic("implement me")
+	err := fmt.Errorf("exceeds shapesCapacity %v", b.shapesCapacity)
+	if b.shapesCapacity >= i {
+		return nil, err
+	}
+	return b.shapes[i], nil
 
 }
 
